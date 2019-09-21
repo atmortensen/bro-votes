@@ -38,10 +38,7 @@ module.exports = io => {
           hallOfFame[0].yaBros.length - hallOfFame[0].noBros.length <
           note.yaBros.length - note.noBros.length
         ) {
-          await BroNote.update(
-            { _id: hallOfFame[0]._id },
-            { superBroNote: false }
-          );
+          await BroNote.findByIdAndDelete(hallOfFame[0]._id);
           hallOfFame[0] = note;
           sortHallOfFame();
           note.superBroNote = true;
