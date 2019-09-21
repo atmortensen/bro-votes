@@ -17,6 +17,8 @@ module.exports = async (req, res, next) => {
       created: new Date()
     });
 
+    res.io.emit('update');
+
     res.status(200).json(broNote);
   } catch (e) {
     next(e);

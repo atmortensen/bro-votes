@@ -1,7 +1,7 @@
 const { BroNote, Bro } = require('./models');
 const moment = require('moment');
 
-module.exports = () => {
+module.exports = io => {
   setInterval(async () => {
     try {
       await Bro.updateMany(
@@ -25,6 +25,10 @@ module.exports = () => {
         created: { $lt: moment().subtract(24, 'hours') },
         superBroNote: { $ne: true }
       });
+
+      if (toBeDeleted.length) {
+        io.emit('update');
+      }
 
       for (let note of toBeDeleted) {
         if (hallOfFame.length < 10) {

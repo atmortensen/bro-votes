@@ -19,6 +19,8 @@ module.exports = async (req, res, next) => {
       await Bro.updateOne({ _id: broNote.broId }, { disabled: new Date() });
     }
 
+    res.io.emit('update');
+
     res.status(200).json(broNote);
   } catch (e) {
     next(e);

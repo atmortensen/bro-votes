@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const express = require('express');
 const app = express();
 const http = require('http').Server(app);
-// const io = require('socket.io')(http);
+const io = require('socket.io')(http);
 const compression = require('compression');
 const helmet = require('helmet');
 const cors = require('cors');
@@ -14,6 +14,11 @@ const chron = require('./chon');
 
 // Trust the headers that Heroku gives
 app.enable('trust proxy');
+
+app.use((req, res, next) => {
+  res.io = io;
+  next();
+});
 
 app.use(httpsRedirect());
 app.use(compression());
@@ -33,10 +38,7 @@ app.post('/bro-notes', auth(), require('./routes/create-bro-note.route'));
 app.get('/bro-notes', auth(), require('./routes/get-bro-notes.route'));
 app.post('/bro-votes', auth(), require('./routes/create-bro-vote.route'));
 
-// module.exports.io = io;
-// module.exports = app;
-
 http.listen(process.env.PORT, () => {
   console.log(`Up on port ${process.env.PORT}.`);
-  chron();
+  chron(io);
 });
