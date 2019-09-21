@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 module.exports.Bros = mongoose.model('bros', {
   handle: String,
-  password: String,
+  password: { type: String, select: false },
   disabled: Date
 });
 

@@ -9,6 +9,7 @@ const helmet = require('helmet');
 const cors = require('cors');
 const { json } = require('body-parser');
 const httpsRedirect = require('./middlewares/https-redirect.middleware');
+const auth = require('./middlewares/auth.middleware');
 
 // Trust the headers that Heroku gives
 app.enable('trust proxy');
@@ -26,6 +27,7 @@ mongoose.connect(process.env.MONGODB_URI, {
 
 app.post('/bros/sign-up', require('./routes/sign-up.route'));
 app.post('/bros/sign-in', require('./routes/sign-in.route'));
+app.get('/bros/me', auth(), require('./routes/get-user.route'));
 
 // module.exports.io = io;
 // module.exports = app;
