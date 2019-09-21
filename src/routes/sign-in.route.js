@@ -9,11 +9,11 @@ module.exports = async (req, res, next) => {
     );
 
     if (!bro) {
-      return res.status(400).json({ message: 'Handle not found.' });
+      return res.status(400).json({ message: "We can't find you bro..." });
     }
 
     if (!bcrypt.compareSync(req.body.password, bro.password)) {
-      return res.status(401).json({ message: 'Incorrect password.' });
+      return res.status(401).json({ message: 'Bad password bro...' });
     }
 
     const jsonBro = bro.toObject();

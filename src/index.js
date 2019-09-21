@@ -28,6 +28,7 @@ mongoose.connect(process.env.MONGODB_URI, {
 app.post('/bros/sign-up', require('./routes/sign-up.route'));
 app.post('/bros/sign-in', require('./routes/sign-in.route'));
 app.get('/bros/me', auth(), require('./routes/get-bro.route'));
+app.post('/bro-notes', auth(), require('./routes/create-bro-note.route'));
 
 // module.exports.io = io;
 // module.exports = app;

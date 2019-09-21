@@ -7,7 +7,7 @@ module.exports = () => {
       if (!req.header('Authorization')) {
         return res
           .status(400)
-          .json({ message: 'Missing authorization header.' });
+          .json({ message: 'No authorization header...bro.' });
       }
 
       const { _id } = jwt.verify(
@@ -20,7 +20,7 @@ module.exports = () => {
       if (!bro) {
         return res
           .status(401)
-          .json({ message: 'An error occurred. Try signing out.' });
+          .json({ message: 'Something weird happened bro. Try signing out.' });
       }
 
       req.bro = bro;

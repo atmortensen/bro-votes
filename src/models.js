@@ -2,24 +2,22 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 module.exports.Bros = mongoose.model('bros', {
-  handle: String,
-  password: { type: String, select: false },
+  handle: { type: String, required: true },
+  password: { type: String, select: false, required: true },
   disabled: Date
 });
 
-module.exports.BrosNotes = mongoose.model('bro-notes', {
-  broId: { type: Schema.Types.ObjectId, ref: 'Bros' },
-  location: {
-    lat: Number,
-    long: Number
-  },
-  note: String,
-  created: Date,
+module.exports.BroNotes = mongoose.model('bro-notes', {
+  broId: { type: Schema.Types.ObjectId, ref: 'Bros', required: true },
+  latitude: { type: Number, required: true },
+  longitude: { type: Number, required: true },
+  note: { type: String, required: true },
+  created: { type: Date, required: true },
   superBroNote: Boolean
 });
 
-module.exports.BrosVotes = mongoose.model('bro-votes', {
-  broId: { type: Schema.Types.ObjectId, ref: 'Bros' },
-  broNoteId: { type: Schema.Types.ObjectId, ref: 'BroNotes' },
-  value: Number
+module.exports.BroVotes = mongoose.model('bro-votes', {
+  broId: { type: Schema.Types.ObjectId, ref: 'Bros', required: true },
+  broNoteId: { type: Schema.Types.ObjectId, ref: 'BroNotes', required: true },
+  value: { type: Number, required: true, min: -1, max: 1 }
 });
