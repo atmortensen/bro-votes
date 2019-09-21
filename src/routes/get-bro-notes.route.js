@@ -1,4 +1,4 @@
-const { BroNotes } = require('../models');
+const { BroNote } = require('../models');
 const geolib = require('geolib');
 
 module.exports = async (req, res, next) => {
@@ -24,10 +24,22 @@ module.exports = async (req, res, next) => {
     const maxLongitude = bounds[1].longitude;
     const minLongitude = bounds[0].longitude;
 
-    const broNotes = await BroNotes.find({
-      latitude: { $gt: minLatitude, $lt: maxLatitude },
-      longitude: { $gt: minLongitude, $lt: maxLongitude }
-    });
+    const broNotes = await BroNote.aggregate([
+      {
+        $match: {
+          latitude: { $gt: minLatitude, $lt: maxLatitude },
+          longitude: { $gt: minLongitude, $lt: maxLongitude }
+        }
+      },
+      {
+        $lookup: {
+          from: 'brovotes',
+          localField: '_id',
+          foreignField: 'broNoteId',
+          as: 'votes'
+        }
+      }
+    ]);
 
     res.status(200).json(broNotes);
   } catch (e) {

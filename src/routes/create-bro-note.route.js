@@ -1,4 +1,4 @@
-const { BroNotes } = require('../models');
+const { BroNote } = require('../models');
 
 module.exports = async (req, res, next) => {
   try {
@@ -9,7 +9,7 @@ module.exports = async (req, res, next) => {
       });
     }
 
-    const broNote = await BroNotes.create({
+    const broNote = await BroNote.create({
       broId: req.bro._id,
       latitude: req.body.latitude,
       longitude: req.body.longitude,

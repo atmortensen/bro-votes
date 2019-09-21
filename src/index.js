@@ -30,6 +30,7 @@ app.post('/bros/sign-in', require('./routes/sign-in.route'));
 app.get('/bros/me', auth(), require('./routes/get-bro.route'));
 app.post('/bro-notes', auth(), require('./routes/create-bro-note.route'));
 app.get('/bro-notes', auth(), require('./routes/get-bro-notes.route'));
+app.post('/bro-votes', auth(), require('./routes/create-bro-vote.route'));
 
 // module.exports.io = io;
 // module.exports = app;

@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const { Bros } = require('../models');
+const { Bro } = require('../models');
 
 module.exports = () => {
   return async (req, res, next) => {
@@ -15,7 +15,7 @@ module.exports = () => {
         process.env.SECRET
       );
 
-      const bro = await Bros.findById(_id);
+      const bro = await Bro.findById(_id);
 
       if (!bro) {
         return res

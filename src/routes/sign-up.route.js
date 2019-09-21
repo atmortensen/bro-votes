@@ -1,14 +1,14 @@
-const { Bros } = require('../models');
+const { Bro } = require('../models');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 module.exports = async (req, res, next) => {
   try {
-    if (await Bros.findOne({ handle: req.body.handle })) {
+    if (await Bro.findOne({ handle: req.body.handle })) {
       return res.status(400).json({ message: 'Handle not available.' });
     }
 
-    const bro = await Bros.create({
+    const bro = await Bro.create({
       handle: req.body.handle,
       password: bcrypt.hashSync(req.body.password)
     });

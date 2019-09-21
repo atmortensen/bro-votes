@@ -1,10 +1,10 @@
-const { Bros } = require('../models');
+const { Bro } = require('../models');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 module.exports = async (req, res, next) => {
   try {
-    const bro = await Bros.findOne({ handle: req.body.handle }).select(
+    const bro = await Bro.findOne({ handle: req.body.handle }).select(
       '+password'
     );
 

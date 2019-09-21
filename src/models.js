@@ -1,14 +1,14 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-module.exports.Bros = mongoose.model('bros', {
+module.exports.Bro = mongoose.model('Bro', {
   handle: { type: String, required: true },
   password: { type: String, select: false, required: true },
   disabled: Date
 });
 
-module.exports.BroNotes = mongoose.model('bro-notes', {
-  broId: { type: Schema.Types.ObjectId, ref: 'Bros', required: true },
+module.exports.BroNote = mongoose.model('BroNote', {
+  broId: { type: Schema.Types.ObjectId, ref: 'Bro', required: true },
   latitude: { type: Number, required: true },
   longitude: { type: Number, required: true },
   note: { type: String, required: true },
@@ -16,8 +16,8 @@ module.exports.BroNotes = mongoose.model('bro-notes', {
   superBroNote: Boolean
 });
 
-module.exports.BroVotes = mongoose.model('bro-votes', {
+module.exports.BroVote = mongoose.model('BroVote', {
   broId: { type: Schema.Types.ObjectId, ref: 'Bros', required: true },
-  broNoteId: { type: Schema.Types.ObjectId, ref: 'BroNotes', required: true },
+  broNoteId: { type: Schema.Types.ObjectId, ref: 'BroNote', required: true },
   value: { type: Number, required: true, min: -1, max: 1 }
 });
