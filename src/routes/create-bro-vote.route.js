@@ -1,4 +1,4 @@
-const { BroNote } = require('../models');
+const { BroNote, Bro } = require('../models');
 
 module.exports = async (req, res, next) => {
   try {
@@ -14,6 +14,10 @@ module.exports = async (req, res, next) => {
     }
 
     await broNote.save();
+
+    if (broNote.yaBros.length - broNote.noBros.length <= -3) {
+      await Bro.updateOne({ _id: broNote.broId }, { disabled: new Date() });
+    }
 
     res.status(200).json(broNote);
   } catch (e) {
