@@ -4,12 +4,12 @@ const jwt = require('jsonwebtoken');
 
 module.exports = async (req, res, next) => {
   try {
-    if (await Bro.findOne({ handle: req.body.handle })) {
+    if (await Bro.findOne({ handle: req.body.handle.toLowerCase().trim() })) {
       return res.status(400).json({ message: 'Handle not available.' });
     }
 
     const bro = await Bro.create({
-      handle: req.body.handle,
+      handle: req.body.handle.toLowerCase().trim(),
       password: bcrypt.hashSync(req.body.password)
     });
 

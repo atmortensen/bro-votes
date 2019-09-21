@@ -4,9 +4,9 @@ const jwt = require('jsonwebtoken');
 
 module.exports = async (req, res, next) => {
   try {
-    const bro = await Bro.findOne({ handle: req.body.handle }).select(
-      '+password'
-    );
+    const bro = await Bro.findOne({
+      handle: req.body.handle.toLowerCase().trim()
+    }).select('+password');
 
     if (!bro) {
       return res.status(400).json({ message: "We can't find you bro..." });
