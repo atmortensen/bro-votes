@@ -1,19 +1,21 @@
-const { BroVote } = require('../models');
+const { BroNote } = require('../models');
 
 module.exports = async (req, res, next) => {
   try {
-    await BroVote.findOneAndDelete({
-      broId: req.bro._id,
-      broNoteId: req.body.broNoteId
-    });
+    const broNote = await BroNote.findById(req.body.broNoteId);
 
-    const broVote = await BroVote.create({
-      broId: req.bro._id,
-      broNoteId: req.body.broNoteId,
-      value: req.body.value
-    });
+    broNote.yaBros.pull(req.bro._id);
+    broNote.noBros.pull(req.bro._id);
 
-    res.status(200).json(broVote);
+    if (req.body.value === 1) {
+      broNote.yaBros.push(req.bro._id);
+    } else if (req.body.value === -1) {
+      broNote.noBros.push(req.bro._id);
+    }
+
+    await broNote.save();
+
+    res.status(200).json(broNote);
   } catch (e) {
     next(e);
   }

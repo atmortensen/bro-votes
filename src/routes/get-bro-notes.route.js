@@ -24,22 +24,10 @@ module.exports = async (req, res, next) => {
     const maxLongitude = bounds[1].longitude;
     const minLongitude = bounds[0].longitude;
 
-    const broNotes = await BroNote.aggregate([
-      {
-        $match: {
-          latitude: { $gt: minLatitude, $lt: maxLatitude },
-          longitude: { $gt: minLongitude, $lt: maxLongitude }
-        }
-      },
-      {
-        $lookup: {
-          from: 'brovotes',
-          localField: '_id',
-          foreignField: 'broNoteId',
-          as: 'votes'
-        }
-      }
-    ]);
+    const broNotes = await BroNote.find({
+      latitude: { $gt: minLatitude, $lt: maxLatitude },
+      longitude: { $gt: minLongitude, $lt: maxLongitude }
+    });
 
     res.status(200).json(broNotes);
   } catch (e) {
