@@ -10,6 +10,7 @@ const cors = require('cors');
 const { json } = require('body-parser');
 const httpsRedirect = require('./middlewares/https-redirect.middleware');
 const auth = require('./middlewares/auth.middleware');
+const chron = require('./chon');
 
 // Trust the headers that Heroku gives
 app.enable('trust proxy');
@@ -37,7 +38,5 @@ app.post('/bro-votes', auth(), require('./routes/create-bro-vote.route'));
 
 http.listen(process.env.PORT, () => {
   console.log(`Up on port ${process.env.PORT}.`);
-
-  // // start chron jobs
-  // require('./chron-jobs/index')(io);
+  chron();
 });
