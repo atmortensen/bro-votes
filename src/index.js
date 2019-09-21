@@ -8,8 +8,6 @@ const compression = require('compression');
 const helmet = require('helmet');
 const cors = require('cors');
 const { json } = require('body-parser');
-
-// const routes = require('./routes');
 const httpsRedirect = require('./middlewares/https-redirect.middleware');
 
 // Trust the headers that Heroku gives
@@ -26,7 +24,8 @@ mongoose.connect(process.env.MONGODB_URI, {
   useUnifiedTopology: true
 });
 
-// app.use('/', routes);
+app.post('/bros/sign-up', require('./routes/sign-up.route'));
+app.post('/bros/sign-in', require('./routes/sign-in.route'));
 
 // module.exports.io = io;
 // module.exports = app;

@@ -1,13 +1,13 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-module.exports.Bros = mongoose.model('Bros', {
+module.exports.Bros = mongoose.model('bros', {
   handle: String,
   password: String,
   disabled: Date
 });
 
-module.exports.Bros = mongoose.model('BroNotes', {
+module.exports.BrosNotes = mongoose.model('bro-notes', {
   broId: { type: Schema.Types.ObjectId, ref: 'Bros' },
   location: {
     lat: Number,
@@ -18,7 +18,7 @@ module.exports.Bros = mongoose.model('BroNotes', {
   superBroNote: Boolean
 });
 
-module.exports.Bros = mongoose.model('BroVotes', {
+module.exports.BrosVotes = mongoose.model('bro-votes', {
   broId: { type: Schema.Types.ObjectId, ref: 'Bros' },
   broNoteId: { type: Schema.Types.ObjectId, ref: 'BroNotes' },
   value: Number
