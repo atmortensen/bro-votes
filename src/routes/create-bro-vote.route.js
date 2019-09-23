@@ -15,7 +15,7 @@ module.exports = async (req, res, next) => {
 
     await broNote.save();
 
-    if (broNote.yaBros.length - broNote.noBros.length <= -3) {
+    if (broNote.yaBros.length - broNote.noBros.length <= -5) {
       await Bro.updateOne({ _id: broNote.broId }, { disabled: new Date() });
       await broNote.remove();
     }
