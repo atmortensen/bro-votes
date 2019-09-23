@@ -22,7 +22,7 @@ module.exports = io => {
       sortHallOfFame();
 
       const toBeDeleted = await BroNote.find({
-        created: { $lt: moment().subtract(24, 'hours') },
+        created: { $lt: moment().subtract(30, 'minutes') },
         superBroNote: { $ne: true }
       });
 
