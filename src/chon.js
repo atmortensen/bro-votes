@@ -6,7 +6,7 @@ module.exports = io => {
     try {
       await Bro.updateMany(
         {
-          disabled: { $lt: moment().subtract(24, 'hours') }
+          disabled: { $lt: moment().subtract(30, 'minutes') }
         },
         { disabled: null }
       );
@@ -22,7 +22,7 @@ module.exports = io => {
       sortHallOfFame();
 
       const toBeDeleted = await BroNote.find({
-        created: { $lt: moment().subtract(30, 'minutes') },
+        created: { $lt: moment().subtract(24, 'hours') },
         superBroNote: { $ne: true }
       });
 
