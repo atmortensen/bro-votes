@@ -5,7 +5,7 @@ module.exports = async (req, res, next) => {
     if (req.bro.disabled) {
       return res.status(401).json({
         message:
-          'Bro! You got too many "no bros". We had to disable your account for 24 hours.'
+          'Bro! You got too many "no bros". We had to disable your account for 30 minutes.'
       });
     }
 
