@@ -9,6 +9,10 @@ module.exports = async (req, res, next) => {
       });
     }
 
+    if (req.body.note.length > 140) {
+      return res.status(400).json({ message: 'Too long of a note bro.' });
+    }
+
     const broNote = await BroNote.create({
       broId: req.bro._id,
       latitude: req.body.latitude,
