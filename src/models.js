@@ -9,8 +9,8 @@ module.exports.Bro = mongoose.model('Bro', {
 
 module.exports.BroNote = mongoose.model('BroNote', {
   broId: { type: Schema.Types.ObjectId, ref: 'Bro', required: true },
-  latitude: { type: Number, required: true },
-  longitude: { type: Number, required: true },
+  latitude: { type: Number, required: false },
+  longitude: { type: Number, required: false },
   note: { type: String, required: true },
   created: { type: Date, required: true },
   superBroNote: Boolean,
