@@ -16,16 +16,14 @@ module.exports = async (req, res, next) => {
 
     const brosNotes = await BroNote.find({ broId: req.bro._id });
     const filteredNotes = brosNotes.filter(
-      note => moment().diff(note.created, 'minutes') < 2
+      note => moment().diff(note.created, 'minutes') < 1
     );
 
     if (filteredNotes.length > 15) {
-      return res
-        .status(400)
-        .json({
-          message:
-            "Are you a bro or robo bro? You've posted too much bro, take a rest."
-        });
+      return res.status(400).json({
+        message:
+          "Are you a bro or robo bro? You've posted too much bro, take a rest."
+      });
     }
 
     const broNote = await BroNote.create({
