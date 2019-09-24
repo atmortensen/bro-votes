@@ -19,7 +19,7 @@ module.exports = async (req, res, next) => {
       note => moment().diff(note.created, 'minutes') < 1
     );
 
-    if (filteredNotes.length > 15) {
+    if (filteredNotes.length > 10) {
       return res.status(400).json({
         message:
           "Are you a bro or robo bro? You've posted too much bro, take a rest."
