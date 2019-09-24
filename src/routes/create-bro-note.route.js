@@ -1,4 +1,5 @@
 const { BroNote } = require('../models');
+const moment = require('moment');
 
 module.exports = async (req, res, next) => {
   try {
@@ -11,6 +12,20 @@ module.exports = async (req, res, next) => {
 
     if (req.body.note.length > 140) {
       return res.status(400).json({ message: 'Too long of a note bro.' });
+    }
+
+    const brosNotes = await BroNote.find({ broId: req.bro._id });
+    const filteredNotes = brosNotes.filter(
+      note => moment().diff(note.created, 'minutes') < 2
+    );
+
+    if (filteredNotes.length > 15) {
+      return res
+        .status(400)
+        .json({
+          message:
+            "Are you a bro or robo bro? You've posted too much bro, take a rest."
+        });
     }
 
     const broNote = await BroNote.create({
